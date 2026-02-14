@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cactus Restaurant | Luxury Dining Menu</title>
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            line-height: 1.6;
+            background-image: radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 20%), 
+                              radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 20%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .header {
+            text-align: center;
+            padding: 60px 0 40px;
+            position: relative;
+            background: linear-gradient(to bottom, rgba(10, 10, 10, 1) 0%, rgba(10, 10, 10, 0.9) 100%);
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+        
+        .restaurant-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            font-weight: 600;
+            color: #d4af37;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .restaurant-name::after {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            right: -40px;
+            transform: translateY(-50%);
+            color: #d4af37;
+            font-size: 1.5rem;
+        }
+        
+        .restaurant-name::before {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            left: -40px;
+            transform: translateY(-50%);
+            color: #d4af37;
+            font-size: 1.5rem;
+        }
+        
+        .menu-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: #f5f5f5;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        
+        .menu-subtitle {
+            font-size: 1rem;
+            color: #b0b0b0;
+            letter-spacing: 2px;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(15, 15, 15, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            list-style: none;
+        }
+        
+        .nav-item a {
+            color: #e8e8e8;
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            padding: 8px 20px;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+            position: relative;
+            letter-spacing: 1px;
+        }
+        
+        .nav-item a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background-color: #d4af37;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-item a:hover {
+            color: #d4af37;
+        }
+        
+        .nav-item a:hover::after {
+            width: 100%;
+        }
+        
+        /* Menu Sections */
+        .menu-section {
+            margin-bottom: 80px;
+            padding: 50px 0;
+            position: relative;
+        }
+        
+        .menu-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 1px;
+            background-color: rgba(212, 175, 55, 0.5);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.2rem;
+            font-weight: 600;
+            color: #d4af37;
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: #d4af37;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            max-width: 500px;
+            margin: 0 auto;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        /* Menu Items Container */
+        .menu-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(20, 20, 20, 0.7);
+            border-radius: 4px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .menu-category {
+            margin-bottom: 40px;
+        }
+        
+        .category-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #f5f5f5;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            letter-spacing: 1px;
+            position: relative;
+        }
+        
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #d4af37;
+        }
+        
+        .menu-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: rgba(212, 175, 55, 0.03);
+        }
+        
+        .item-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #f5f5f5;
+            flex: 1;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .item-name::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+            font-size: 1.5rem;
+        }
+        
+        .item-price {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #d4af37;
+            min-width: 120px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 1px;
+        }
+        
+        .add-on-item .item-name {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            padding-left: 35px;
+        }
+        
+        .add-on-item .item-name::before {
+            content: '+';
+            font-size: 1.2rem;
+        }
+        
+        .add-on-item .item-price {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+        }
+        
+        .item-divider {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            margin: 0 20px;
+        }
+        
+        /* Special items */
+        .signature-item {
+            background-color: rgba(212, 175, 55, 0.05);
+            border-left: 3px solid #d4af37;
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+        
+        .signature-item .item-name {
+            font-size: 1.5rem;
+            color: #d4af37;
+            padding-left: 0;
+        }
+        
+        .signature-item .item-name::before {
+            display: none;
+        }
+        
+        .signature-item .item-price {
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 0 40px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            background-color: rgba(10, 10, 10, 0.9);
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 1px;
+            background-color: rgba(212, 175, 55, 0.5);
+        }
+        
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #d4af37;
+            margin-bottom: 25px;
+        }
+        
+        .footer-info {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+        }
+        
+        .footer-divider {
+            width: 100px;
+            height: 1px;
+            background-color: rgba(212, 175, 55, 0.3);
+            margin: 25px auto;
+        }
+        
+        .footer-note {
+            color: #d4af37;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            margin-top: 25px;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(212, 175, 55, 0.9);
+            color: #0a0a0a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+        }
+        
+        .scroll-top:hover {
+            opacity: 1;
+            transform: translateY(-5px);
+            background-color: #d4af37;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .restaurant-name {
+                font-size: 4rem;
+            }
+            
+            .menu-title {
+                font-size: 2rem;
+                letter-spacing: 8px;
+            }
+            
+            .section-title {
+                font-size: 2.8rem;
+            }
+            
+            .menu-container {
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .restaurant-name {
+                font-size: 3.2rem;
+            }
+            
+            .restaurant-name::before,
+            .restaurant-name::after {
+                display: none;
+            }
+            
+            .menu-title {
+                font-size: 1.8rem;
+                letter-spacing: 5px;
+            }
+            
+            .nav-menu {
+                gap: 10px;
+            }
+            
+            .nav-item a {
+                font-size: 1.1rem;
+                padding: 6px 12px;
+            }
+            
+            .section-title {
+                font-size: 2.4rem;
+            }
+            
+            .menu-container {
+                padding: 20px;
+            }
+            
+            .item-name {
+                font-size: 1.3rem;
+            }
+            
+            .item-price {
+                font-size: 1.3rem;
+                min-width: 100px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .restaurant-name {
+                font-size: 2.8rem;
+            }
+            
+            .menu-title {
+                font-size: 1.5rem;
+                letter-spacing: 3px;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .item-name {
+                font-size: 1.2rem;
+            }
+            
+            .item-price {
+                font-size: 1.2rem;
+                min-width: 90px;
+            }
+            
+            .menu-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            
+            .item-divider {
+                display: none;
+            }
+            
+            .item-price {
+                text-align: left;
+                padding-left: 25px;
+            }
+        }
+        
+        /* Animation for menu items */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .menu-item {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        .menu-item:nth-child(1) { animation-delay: 0.1s; }
+        .menu-item:nth-child(2) { animation-delay: 0.2s; }
+        .menu-item:nth-child(3) { animation-delay: 0.3s; }
+        .menu-item:nth-child(4) { animation-delay: 0.4s; }
+        .menu-item:nth-child(5) { animation-delay: 0.5s; }
+        .menu-item:nth-child(6) { animation-delay: 0.6s; }
+        .menu-item:nth-child(7) { animation-delay: 0.7s; }
+        .menu-item:nth-child(8) { animation-delay: 0.8s; }
+        .menu-item:nth-child(9) { animation-delay: 0.9s; }
+        .menu-item:nth-child(10) { animation-delay: 1.0s; }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header" style="background-image: url(about\ us.jpeg); background-size: cover; background-position: center;">
+        <div class="container">
+            <h1 class="restaurant-name">Cactus</h1>
+            <h2 class="menu-title">Luxury Dining Menu</h2>
+            <p class="menu-subtitle">An exquisite culinary experience featuring premium ingredients and masterful preparation</p>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="container">
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#breakfast">Breakfast</a></li>
+                <li class="nav-item"><a href="#shared">Shared</a></li>
+                <li class="nav-item"><a href="#salads">Salads</a></li>
+                <li class="nav-item"><a href="#sandwiches">Sandwiches</a></li>
+                <li class="nav-item"><a href="#burgers">Burgers</a></li>
+                <li class="nav-item"><a href="#pasta">Pasta</a></li>
+                <li class="nav-item"><a href="#pizza">Pizza</a></li>
+                <li class="nav-item"><a href="#main">Main Course</a></li>
+                <li class="nav-item"><a href="#signature">Signature</a></li>
+                <li class="nav-item"><a href="#dessert">Dessert</a></li>
+                <li class="nav-item"><a href="#drinks">Drinks</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Breakfast Section -->
+        <section id="breakfast" class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Breakfast</h3>
+                <p class="section-subtitle">Served daily from 7:00 AM to 11:30 AM</p>
+            </div>
+            <div class="menu-container">
+                <div class="menu-category">
+                    <h4 class="category-title">Omelettes & Classics</h4>
+                    <div class="menu-items" id="breakfast-items">
+                        <!-- Breakfast items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Shared Delicacies Section -->
+        <section id="shared" class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Shared Delicacies</h3>
+                <p class="section-subtitle">Perfect for sharing and beginning your culinary journey</p>
+            </div>
+            <div class="menu-container">
+                <div class="menu-category">
+                    <h4 class="category-title">Appetizers & Small Plates</h4>
+                    <div class="menu-items" id="shared-items">
+                        <!-- Shared items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Salads Section -->
+        <section id="salads" class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Salads</h3>
+                <p class="section-subtitle">Fresh, vibrant creations with premium ingredients</p>
+            </div>
+            <div class="menu-container">
+                <div class="menu-category">
+                    <h4 class="category-title">Signature Salads</h4>
+                    <div class="menu-items" id="salads-items">
+                        <!-- Salad items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sandwiches Section -->
+        <section id="sandwiches" class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Sandwiches</h3>
+                <p class="section-subtitle">Artisanal breads with premium fillings</p>
+            </div>
+            <div class="menu-container">
+                <div class="menu-category">
+                    <h4 class="category-title">Handcrafted Sandwiches</h4>
+                    <div class="menu-items" id="sandwiches-items">
+                        <!-- Sandwich items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Burgers Section -->
+        <section id="burgers" class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Burgers</h3>
+                <p class="section-subtitle">Premium meats and artisanal accompaniments</p>
+            </div>
+            <div class="menu-container">
+                <div class="menu-category">
+                    <h4 class="category-title">Signature Burgers</h4>
+                    <div class="menu-items" id="burgers-items">
+                        <!-- Burger items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Pasta Section -->
+        <section id="pasta" class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Pasta</h3>
+                <p class="section-subtitle">Handcrafted pasta with exquisite sauces</p>
+            </div>
+            <div class="menu-container">
+                <div class="menu-category">
+                    <h4 class="category-title">House-made Pasta</h4>
+                    <div class="menu-items" id="pasta-items">
+                        <!-- Pasta items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Pizza Section -->
+        <section id="pizza" class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Pizza</h3>
+                <p class="section-subtitle">Wood-fired perfection with premium toppings</p>
+            </div>
+            <div class="menu-container">
+                <div class="menu-category">
+                    <h4 class="category-title">Artisanal Pizza</h4>
+                    <div class="menu-items" id="pizza-items">
+                        <!-- Pizza items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Main Course Section -->
+        <section id="main" class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Main Course</h3>
+                <p class="section-subtitle">Exquisite entrees featuring the finest ingredients</p>
+            </div>
+            <div class="menu-container">
+                <div class="menu-category">
+                    <h4 class="category-title">Signature Mains</h4>
+                    <div class="menu-items" id="main-items">
+                        <!-- Main course items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Cactus Signature Dishes Section -->
+        <section id="signature" class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Cactus Signature Dishes</h3>
+                <p class="section-subtitle">Exclusive creations available only at Cactus</p>
+            </div>
+            <div class="menu-container">
+                <div class="menu-category">
+                    <h4 class="category-title">Chef's Specialties</h4>
+                    <div class="menu-items" id="signature-items">
+                        <!-- Signature items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Dessert Section -->
+        <section id="dessert" class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Dessert</h3>
+                <p class="section-subtitle">Sweet conclusions to your dining experience</p>
+            </div>
+            <div class="menu-container">
+                <div class="menu-category">
+                    <h4 class="category-title">Sweet Finales</h4>
+                    <div class="menu-items" id="dessert-items">
+                        <!-- Dessert items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Drinks Section -->
+        <section id="drinks" class="menu-section">
+            <div class="section-header">
+                <h3 class="section-title">Drinks Menu</h3>
+                <p class="section-subtitle">Curated beverages to complement your meal</p>
+            </div>
+            <div class="menu-container">
+                <div class="menu-category">
+                    <h4 class="category-title">Hot Drinks</h4>
+                    <div class="menu-items" id="hot-drinks-items">
+                        <!-- Hot drink items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="menu-category">
+                    <h4 class="category-title">Beverages & Smoothies</h4>
+                    <div class="menu-items" id="beverages-items">
+                        <!-- Beverage items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="menu-category">
+                    <h4 class="category-title">Beer & Cocktails</h4>
+                    <div class="menu-items" id="cocktails-items">
+                        <!-- Cocktail items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">Cactus</div>
+            <div class="footer-divider"></div>
+            <div class="footer-info">
+                <p>Experience luxury dining at its finest. Our chefs craft each dish with the highest quality ingredients and meticulous attention to detail.</p>
+                <p style="margin-top: 15px;">All prices are in Nigerian Naira (₦). Prices subject to change without notice.</p>
+            </div>
+            <div class="footer-note">
+                Reservations recommended • Dress code: Smart casual
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <script>
+        // Menu data organized by sections
+        const menuData = {
+            breakfast: [
+                { name: "Bacon, ham or turkey", price: "₦4,500" },
+                { name: "Cheese", price: "₦4,500" },
+                { name: "Grilled sausage", price: "₦3,000" },
+                { name: "Baked Beans", price: "₦3,000" },
+                { name: "Tuna", price: "₦6,000" },
+                { name: "Shrimp", price: "₦7,000" },
+                { name: "Grilled vegetables", price: "₦3,000" },
+                { name: "Porridge Beans", price: "₦3,000" },
+                { name: "Extra egg", price: "₦2,000", addOn: true },
+                { name: "Homemade Sausage", price: "₦3,000" },
+                { name: "Philly Steak Omelette", price: "₦25,000", signature: true },
+                { name: "Lagos Passion", price: "₦13,000", signature: true },
+                { name: "English Breakfast", price: "₦19,000" },
+                { name: "Famila", price: "₦35,000", signature: true },
+                { name: "Craft Your Own Omelette with added cheese", price: "₦23,000" },
+                { name: "Craft Your Own Omelette", price: "₦19,000" },
+                { name: "Country Man", price: "₦23,000" },
+                { name: "The Breakfast Sandwich", price: "₦24,500" },
+                { name: "Salmon Avocado Toast", price: "₦28,000", signature: true },
+                { name: "The Ultimate", price: "₦25,000", signature: true },
+                { name: "Pancake Revolution", price: "₦36,000", signature: true },
+                { name: "Pancake", price: "₦5,000" },
+                { name: "Waffles", price: "₦19,000" },
+                { name: "Kasava Delight", price: "₦13,000" }
+            ],
+            shared: [
+                { name: "Gizdodo", price: "₦17,000" },
+                { name: "Buffalo Bites", price: "₦15,000" },
+                { name: "Summer Rolls", price: "₦13,000" },
+                { name: "Big House Wings", price: "₦20,000" },
+                { name: "Hummus Meatballs", price: "₦11,500" },
+                { name: "Beef or Chicken Suya", price: "₦21,000" },
+                { name: "Dynamite Shrimp", price: "₦20,000", signature: true },
+                { name: "9ja Bites", price: "₦11,000" },
+                { name: "Fish Pepper Soup", price: "₦14,000" },
+                { name: "Trio Mare", price: "₦23,000", signature: true },
+                { name: "Spicy Beef Sticks", price: "₦20,000" },
+                { name: "Fried Jark Butterfly", price: "₦18,000" },
+                { name: "Garlic Cheese Bread", price: "₦14,000" },
+                { name: "Shrimp Empanadas", price: "₦15,000" },
+                { name: "Shi Hummus", price: "₦14,500" },
+                { name: "Mac and Cheese Poppers", price: "₦16,500" },
+                { name: "Avocado Bruschetta", price: "₦13,500" },
+                { name: "Nachos Shrimp Tempura", price: "₦20,000" },
+                { name: "Crispy Calamari", price: "₦22,000" },
+                { name: "Taco Burger Sliders", price: "₦16,000" }
+            ],
+            salads: [
+                { name: "Kale Strawberry", price: "₦19,500" },
+                { name: "Festival", price: "₦18,500" },
+                { name: "Caesar with a Twist", price: "₦19,000" },
+                { name: "Tuna Freshness", price: "₦25,500", signature: true },
+                { name: "Norge Salad", price: "₦29,000", signature: true },
+                { name: "Quinoa", price: "₦18,500" },
+                { name: "Atlantic Shrimp & Crab", price: "₦26,000", signature: true },
+                { name: "Cobb Salad", price: "₦18,500" },
+                { name: "Niçoise", price: "₦27,500", signature: true },
+                { name: "Traditional Cactus Salad", price: "₦17,500" }
+            ],
+            sandwiches: [
+                { name: "Club Sandwich", price: "₦22,000" },
+                { name: "Grilled Chicken Avocado", price: "₦24,500" },
+                { name: "Mushroom Steak Sandwich", price: "₦33,000", signature: true },
+                { name: "Chicken Warp", price: "₦27,500" },
+                { name: "Buffalo Panini", price: "₦22,000" },
+                { name: "NY Prawn Wrap", price: "₦27,000", signature: true },
+                { name: "Cactus Wrap", price: "₦25,000" },
+                { name: "Chicken Suya Wrap", price: "₦22,000" }
+            ],
+            burgers: [
+                { name: "The Classic", price: "₦18,500" },
+                { name: "Add Cheese", price: "₦4,500", addOn: true },
+                { name: "Cactus Signature", price: "₦24,000", signature: true },
+                { name: "Mac & Beef", price: "₦33,000", signature: true },
+                { name: "Add Cheese", price: "₦4,500", addOn: true },
+                { name: "Smashy Burger", price: "₦22,000" },
+                { name: "Street Style", price: "₦21,000" },
+                { name: "Smashed Sizzling Burger", price: "₦26,000", signature: true },
+                { name: "Mighty Chicken", price: "₦20,000" }
+            ],
+            pasta: [
+                { name: "Add Parmesan (add-on)", price: "₦4,000", addOn: true },
+                { name: "Bolognaise", price: "₦19,000" },
+                { name: "Chicken and Shrimp", price: "₦30,000", signature: true },
+                { name: "Arrabiata", price: "₦16,500" },
+                { name: "Add Shrimps", price: "₦7,000", addOn: true },
+                { name: "Alfredo", price: "₦25,000" },
+                { name: "Ocean Marinara", price: "₦28,000", signature: true },
+                { name: "Prawns Firelli", price: "₦43,500", signature: true },
+                { name: "White Marinara", price: "₦30,000", signature: true },
+                { name: "Plantain Lasagna", price: "₦26,000", signature: true }
+            ],
+            pizza: [
+                { name: "Margarita", price: "₦17,000" },
+                { name: "Suya", price: "₦21,000", signature: true },
+                { name: "Pepperoni", price: "₦21,000" },
+                { name: "Seafood", price: "₦30,000", signature: true },
+                { name: "Vegetarian", price: "₦21,000" },
+                { name: "BBQ Chicken", price: "₦20,500" },
+                { name: "Four Season", price: "₦24,000", signature: true },
+                { name: "Ozumba", price: "₦22,000", signature: true },
+                { name: "Omokurin", price: "₦28,000", signature: true }
+            ],
+            main: [
+                { name: "Pork Ribs", price: "₦78,000", signature: true },
+                { name: "Spicy Thai Shrimp", price: "₦30,000", signature: true },
+                { name: "Rib-Eye", price: "₦68,000", signature: true },
+                { name: "Jumbo Prawns", price: "₦56,000", signature: true },
+                { name: "3P Fajitas", price: "₦30,000" },
+                { name: "Fish and Chips", price: "₦26,000" },
+                { name: "Spicy Shredded Beef", price: "₦38,000", signature: true },
+                { name: "Add Spicy Ginger Tomato Sauce", price: "₦2,500", addOn: true },
+                { name: "Grilled Salmon Filet", price: "₦48,000", signature: true },
+                { name: "Marinated Grilled Fish", price: "₦26,000" },
+                { name: "Centre-Cut Filet Mignon", price: "₦55,000", signature: true },
+                { name: "Teriyaki Noodles", price: "₦15,000" },
+                { name: "Add Chicken", price: "₦4,500", addOn: true },
+                { name: "Add Shrimps", price: "₦7,000", addOn: true }
+            ],
+            signature: [
+                { name: "Club Smash Burger", price: "₦26,000", signature: true },
+                { name: "Cactus Medley", price: "₦37,000", signature: true },
+                { name: "Add Extra Prawn", price: "₦11,000/piece", addOn: true },
+                { name: "Seafood Jark", price: "₦70,000", signature: true },
+                { name: "Pacific", price: "₦75,000", signature: true }
+            ],
+            dessert: [
+                { name: "Molten Chocolate Cake", price: "₦14,000" },
+                { name: "Chocolat Mou", price: "₦14,000" },
+                { name: "Brownie", price: "₦14,000" },
+                { name: "Banana Split", price: "₦13,000" },
+                { name: "Baileys Triffle", price: "₦14,000" },
+                { name: "Chocolate Mousse Cake", price: "₦16,000", signature: true },
+                { name: "Milkshake", price: "₦14,000" },
+                { name: "Cookie Skillet", price: "₦15,000", signature: true }
+            ],
+            drinks: {
+                hot: [
+                    { name: "Espresso", price: "₦4,500" },
+                    { name: "Double Espresso", price: "₦6,500" },
+                    { name: "Americano", price: "₦6,500" },
+                    { name: "Black Coffee", price: "₦6,500" },
+                    { name: "Cappuccino", price: "₦6,500" },
+                    { name: "Caffe Latte", price: "₦7,500" },
+                    { name: "Caffe Mocha", price: "₦9,000" },
+                    { name: "Irish Coffee", price: "₦12,000", signature: true },
+                    { name: "Hot Chocolate", price: "₦6,500" },
+                    { name: "Iced Caramel Latte", price: "₦9,000" },
+                    { name: "Frappuccino", price: "₦10,000" },
+                    { name: "Iced Tea", price: "₦8,000" },
+                    { name: "Flavoured Tea", price: "₦5,000" }
+                ],
+                beverages: [
+                    { name: "Mint Mango Smoothie", price: "₦13,000" },
+                    { name: "Strawberry Smoothie", price: "₦13,000" },
+                    { name: "African Smoothie", price: "₦13,000" },
+                    { name: "Royal Cactus", price: "₦18,000", signature: true },
+                    { name: "Coconut Lemonade", price: "₦12,000" },
+                    { name: "Frozen Lemonade", price: "₦13,000" },
+                    { name: "Frozen Ginger Lemonade", price: "₦14,000" },
+                    { name: "Coconut Smoothie", price: "₦12,000" },
+                    { name: "Ginger Punch", price: "₦12,000" },
+                    { name: "Ice Ginger Peach", price: "₦13,000" },
+                    { name: "Raspberry Ginger Cooler", price: "₦14,000" },
+                    { name: "Pineapple Coconut Nojito", price: "₦14,000" },
+                    { name: "Virgin Colada", price: "₦13,000" }
+                ],
+                cocktails: [
+                    { name: "Margarita", price: "₦13,500" },
+                    { name: "Old Fashioned", price: "₦15,000" },
+                    { name: "Negroni", price: "₦15,000" },
+                    { name: "Daiquiri", price: "₦14,000" },
+                    { name: "Martini", price: "₦13,000" },
+                    { name: "Cuba Libre", price: "₦13,000" },
+                    { name: "Zombie", price: "₦16,000", signature: true },
+                    { name: "Manhattan", price: "₦15,000" },
+                    { name: "Blue Lagoon", price: "₦13,500" },
+                    { name: "Gin Basil", price: "₦14,500" },
+                    { name: "Boulevardier", price: "₦14,000" },
+                    { name: "Sazerac", price: "₦16,000", signature: true },
+                    { name: "Tequila Sunrise", price: "₦14,500" },
+                    { name: "Cactus on Fire", price: "₦20,000", signature: true }
+                ]
+            }
+        };
+
+        // Function to create menu items
+        function createMenuItems() {
+            // Create regular menu sections
+            for (const section in menuData) {
+                if (section === 'drinks') continue;
+                
+                const container = document.querySelector(`#${section}-items`);
+                if (!container) continue;
+                
+                menuData[section].forEach(item => {
+                    const menuItem = document.createElement('div');
+                    
+                    if (item.signature) {
+                        menuItem.className = 'menu-item signature-item';
+                    } else if (item.addOn) {
+                        menuItem.className = 'menu-item add-on-item';
+                    } else {
+                        menuItem.className = 'menu-item';
+                    }
+                    
+                    menuItem.innerHTML = `
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-divider"></div>
+                        <div class="item-price">${item.price}</div>
+                    `;
+                    
+                    container.appendChild(menuItem);
+                });
+            }
+            
+            // Create drinks sections
+            const hotDrinksContainer = document.querySelector('#hot-drinks-items');
+            if (hotDrinksContainer) {
+                menuData.drinks.hot.forEach(item => {
+                    const menuItem = document.createElement('div');
+                    menuItem.className = `menu-item ${item.signature ? 'signature-item' : ''}`;
+                    
+                    menuItem.innerHTML = `
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-divider"></div>
+                        <div class="item-price">${item.price}</div>
+                    `;
+                    
+                    hotDrinksContainer.appendChild(menuItem);
+                });
+            }
+            
+            const beveragesContainer = document.querySelector('#beverages-items');
+            if (beveragesContainer) {
+                menuData.drinks.beverages.forEach(item => {
+                    const menuItem = document.createElement('div');
+                    menuItem.className = `menu-item ${item.signature ? 'signature-item' : ''}`;
+                    
+                    menuItem.innerHTML = `
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-divider"></div>
+                        <div class="item-price">${item.price}</div>
+                    `;
+                    
+                    beveragesContainer.appendChild(menuItem);
+                });
+            }
+            
+            const cocktailsContainer = document.querySelector('#cocktails-items');
+            if (cocktailsContainer) {
+                menuData.drinks.cocktails.forEach(item => {
+                    const menuItem = document.createElement('div');
+                    menuItem.className = `menu-item ${item.signature ? 'signature-item' : ''}`;
+                    
+                    menuItem.innerHTML = `
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-divider"></div>
+                        <div class="item-price">${item.price}</div>
+                    `;
+                    
+                    cocktailsContainer.appendChild(menuItem);
+                });
+            }
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            createMenuItems();
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('.nav-item a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 120,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            });
+            
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Add subtle animation to menu items on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe menu items for animation
+            document.querySelectorAll('.menu-item').forEach(item => {
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>

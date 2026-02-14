@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cactus Restaurant | Home Away From Home</title>
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Transparent Fixed Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-cactus"></i>
+                <span>Cactus Restaurant</span>
+            </a>
+            
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            
+            <!-- Navigation Menu -->
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#special-events" class="nav-link">Special Events</a></li>
+                <li><a href="#ice-cream" class="nav-link">Ice Cream</a></li>
+                <li><a href="#dessert" class="nav-link">Dessert</a></li>
+                <li><a href="#pastries" class="nav-link">Pastries</a></li>
+                <li><a href="#breakfast" class="nav-link">Breakfast</a></li>
+                <li><a href="#latte" class="nav-link">Latte</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="menu.html" class="nav-link menu-btn">Our Menu</a></li>
+                <li><a href="reservation.html" class="nav-link reservation-btn">Make Reservation</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Background Image -->
+    <section id="home" class="hero">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>Cactus Restaurant</h1>
+                <p class="motto">Cactus is a Home away from Home</p>
+                <div class="hero-buttons">
+                    <a href="reservation.html" class="hero-btn">Make a Reservation</a>
+                    <a href="menu.html" class="hero-btn secondary-btn">View Our Menu</a>
+                </div>
+            </div>
+        </div>
+        <a href="#about" class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Us</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Established in 1998, Cactus has grown from a beloved local secret into an iconic landmark on the Victoria Island waterfront. We take pride in offering a diverse, world-class menu that blends international flavors with the vibrant spirit of Lagos. Whether you're enjoying a sunset dinner on our lagoon-view terrace or a family brunch in our cozy dining room, we provide an atmosphere for every occasion. Our legendary in-house bakery continues to set the standard for artisanal treats, featuring our famous cakes and freshly baked breads.</p>
+                    <p>At Cactus, we are dedicated to creating more than just meals—we create lasting memories through exceptional food and warm hospitality.</p>
+                    <a href="#special-events" class="cta-btn">View Our Special Events</a>
+                </div>
+                <div class="about-image">
+                    <img src="about us.jpeg" alt="Cactus Restaurant interior">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Events Section -->
+    <section id="special-events" class="section special-events-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Special Events</h2>
+                <div class="divider"></div>
+                <p class="section-subtitle">Celebrate Life's Special Moments with Us</p>
+            </div>
+            <div class="special-events-grid">
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="lop.jpeg" alt="Birthday Proposal">
+                        <div class="event-badge">Most Popular</div>
+                    </div>
+                    <div class="event-content">
+                        <h3>Birthday Proposals</h3>
+                        <p>Make your birthday extra special with our romantic proposal packages. We create magical moments with rose petals, candlelight, and personalized service.</p>
+                        <ul class="event-features">
+                            <li><i class="fas fa-check"></i> Romantic Decor Setup</li>
+                            <li><i class="fas fa-check"></i> Special Birthday Cake</li>
+                            <li><i class="fas fa-check"></i> Champagne Toast</li>
+                            <li><i class="fas fa-check"></i> Photographer Available</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="christmas.jpeg" alt="Christmas Special">
+                        <div class="event-badge">Seasonal</div>
+                    </div>
+                    <div class="event-content">
+                        <h3>Christmas Special</h3>
+                        <p>Experience the magic of Christmas with our festive menu and decorations. Enjoy traditional Christmas dinner with all the trimmings.</p>
+                        <ul class="event-features">
+                            <li><i class="fas fa-check"></i> Festive Decorations</li>
+                            <li><i class="fas fa-check"></i> Traditional Christmas Menu</li>
+                            <li><i class="fas fa-check"></i> Carol Singers</li>
+                            <li><i class="fas fa-check"></i> Gift Exchange Events</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="val.jpeg" alt="Anniversary Celebration">
+                        <div class="event-badge">Romantic</div>
+                    </div>
+                    <div class="event-content">
+                        <h3>Anniversary Celebrations</h3>
+                        <p>Celebrate your love story with our exclusive anniversary packages. Personalized menus and intimate settings for your special day.</p>
+                        <ul class="event-features">
+                            <li><i class="fas fa-check"></i> Personalized Menu</li>
+                            <li><i class="fas fa-check"></i> Anniversary Cake</li>
+                            <li><i class="fas fa-check"></i> Wine Pairing</li>
+                            <li><i class="fas fa-check"></i> Private Dining Area</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ice Cream Section -->
+    <section id="ice-cream" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Artisanal Ice Cream</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="product-content">
+                <div class="product-image">
+                    <img src="ice.jpeg" alt="Artisanal Ice Cream">
+                </div>
+                <div class="product-text">
+                    <h3>Handcrafted Ice Cream</h3>
+                    <p>Indulge in our premium, handcrafted ice cream made fresh daily with natural ingredients. Our ice cream parlor offers a rotating selection of classic and innovative flavors that change with the seasons.</p>
+                    <p>From rich Belgian chocolate to refreshing mango sorbet, each scoop is a masterpiece of flavor and texture. We use only the finest dairy, fresh fruits, and premium ingredients to create our signature frozen delights.</p>
+                    <div class="product-features">
+                        <div class="feature">
+                            <i class="fas fa-leaf"></i>
+                            <span>Natural Ingredients</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-star"></i>
+                            <span>Daily Fresh</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-heart"></i>
+                            <span>No Artificial Colors</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dessert Section -->
+    <section id="dessert" class="section dessert-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Decadent Desserts</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="product-content reverse">
+                <div class="product-text">
+                    <h3>Sweet Endings</h3>
+                    <p>Our dessert menu features exquisite creations that are as beautiful as they are delicious. From classic favorites to innovative new treats, our pastry chefs create magical endings to every meal.</p>
+                    <p>Signature desserts include our famous chocolate lava cake, tiramisu with a modern twist, and seasonal fruit tarts made with locally sourced produce. Each dessert is carefully crafted to balance sweetness, texture, and flavor.</p>
+                    <div class="product-features">
+                        <div class="feature">
+                            <i class="fas fa-birthday-cake"></i>
+                            <span>Signature Cakes</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-pie-chart"></i>
+                            <span>Artisanal Tarts</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-cookie-bite"></i>
+                            <span>Freshly Baked</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-image">
+                    <img src="des.jpeg" alt="Decadent Desserts">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pastries Section -->
+    <section id="pastries" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Fresh Pastries</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="product-content">
+                <div class="product-image">
+                    <img src="pas.jpeg" alt="Fresh Pastries">
+                </div>
+                <div class="product-text">
+                    <h3>Bakery Delights</h3>
+                    <p>Wake up to the aroma of freshly baked pastries from our in-house bakery. Our pastry chefs start their day before dawn to bring you warm, flaky croissants, buttery scones, and sweet danishes.</p>
+                    <p>Our pastry selection includes classic French pastries, traditional Nigerian baked goods, and innovative fusion creations. All made with premium butter, organic flour, and careful attention to detail.</p>
+                    <div class="product-features">
+                        <div class="feature">
+                            <i class="fas fa-bread-slice"></i>
+                            <span>Daily Fresh Bread</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-croissant"></i>
+                            <span>French Pastries</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-clock"></i>
+                            <span>Early Morning Fresh</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Environment Section -->
+    <section id="environment" class="section environment-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Environment</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="product-content reverse">
+                <div class="product-text">
+                    <h3>Eco-Friendly Dining</h3>
+                    <p>At Cactus, we believe in sustainable dining that respects our planet. We've implemented numerous eco-friendly practices to reduce our environmental footprint while maintaining our high standards of quality and service.</p>
+                    <p>From sourcing local ingredients to implementing comprehensive recycling programs, we're committed to creating a dining experience that's good for you and good for the Earth.</p>
+                    <div class="product-features">
+                        <div class="feature">
+                            <i class="fas fa-seedling"></i>
+                            <span>Local Sourcing</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-recycle"></i>
+                            <span>Zero Waste Goals</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-tint"></i>
+                            <span>Water Conservation</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-image">
+                    <img src="out side.jpeg" alt="Restaurant Environment">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Breakfast Section -->
+    <section id="breakfast" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Breakfast Specials</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="product-content">
+                <div class="product-image">
+                    <img src="breakfast.jpeg" alt="Breakfast Specials">
+                </div>
+                <div class="product-text">
+                    <h3>Morning Excellence</h3>
+                    <p>Start your day right with our signature breakfast menu featuring both local favorites and international classics. From hearty Nigerian breakfasts to light continental options, we have something for every morning mood.</p>
+                    <p>Our breakfast is served daily from 7:30 AM, featuring freshly squeezed juices, premium coffee, and made-to-order dishes using the morning's freshest ingredients.</p>
+                    <div class="product-features">
+                        <div class="feature">
+                            <i class="fas fa-egg"></i>
+                            <span>Fresh Egg Dishes</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-pancakes"></i>
+                            <span>Signature Pancakes</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-coffee"></i>
+                            <span>Premium Coffee</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latte Section -->
+    <section id="latte" class="section latte-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Signature Lattes</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="product-content reverse">
+                <div class="product-text">
+                    <h3>Coffee Artistry</h3>
+                    <p>Experience coffee like never before with our signature latte creations. Our baristas are trained in the art of coffee making, creating beautiful latte art and perfectly balanced flavors in every cup.</p>
+                    <p>We source our coffee beans from sustainable farms and roast them locally to ensure maximum freshness. From classic cappuccinos to innovative flavored lattes, our coffee menu offers something for every coffee lover.</p>
+                    <div class="product-features">
+                        <div class="feature">
+                            <i class="fas fa-mug-hot"></i>
+                            <span>Latte Art</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-leaf"></i>
+                            <span>Single Origin</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-fire"></i>
+                            <span>Perfectly Roasted</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-image">
+                    <img src="latte.jpeg" alt="Signature Lattes">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Contact Us</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Location</h3>
+                            <p>20/24 Ozumba Mbadiwe Ave, Victoria Island, Lagos 106104, Lagos</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>08027777666</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Hours</h3>
+                            <p><strong>Monday - Thursday:</strong> 7:30 AM - 10:00 PM</p>
+                            <p><strong>Friday - Saturday:</strong> 7:30 AM - 10:30 PM</p>
+                            <p><strong>Sunday:</strong> 7:30 AM - 10:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reservation-cta">
+                    <h3>Ready to Experience Cactus?</h3>
+                    <p>Book your table now and enjoy our exceptional dining experience</p>
+                    <a href="reservation.html" class="hero-btn reservation-cta-btn">Make a Reservation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-cactus"></i>
+                    <span>Cactus Restaurant</span>
+                </div>
+                <p class="footer-text">© <span id="currentYear"></span> Cactus Restaurant. All rights reserved. Cactus is a Home away from Home. <div class="name" style="text-decoration: none; padding-bottom: 3rem;">Made by Waheed Desire</div></p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/CactusBakery" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/cactusrestaurantlagos" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
