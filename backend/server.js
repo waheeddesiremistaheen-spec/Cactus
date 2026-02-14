@@ -2,24 +2,54 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
+
+// ✅ Allow requests from anywhere (important for frontend)
 app.use(cors());
+
+// ✅ Parse JSON body
 app.use(express.json());
 
-// Temporary storage (we’ll replace this with a database later)
+// Temporary storage (replace with database later)
 let reservations = [];
+
+/* ===============================
+   ROUTES
+================================ */
+
+// Home route (so Render doesn’t crash)
+app.get("/", (req, res) => {
+  res.send("Cactus Restaurant API is running 🚀");
+});
 
 // Receive reservation
 app.post("/reservations", (req, res) => {
-  reservations.push(req.body);
-  res.json({ message: "Reservation received successfully!" });
+  const reservation = req.body;
+
+  if (!reservation.name || !reservation.phone || !reservation.email) {
+    return res.status(400).json({ message: "Missing required fields" });
+  }
+
+  reservations.push(reservation);
+
+  console.log("New Reservation:", reservation);
+
+  res.json({
+    success: true,
+    message: "Reservation received successfully!",
+  });
 });
 
-// View all reservations
+// View all reservations (for testing)
 app.get("/reservations", (req, res) => {
   res.json(reservations);
 });
 
-// Start server
-app.listen(3000, () => {
-  console.log("✅ Server running on http://localhost:3000");
+/* ===============================
+   IMPORTANT FOR RENDER
+================================ */
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
 });
