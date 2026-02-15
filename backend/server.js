@@ -8,7 +8,7 @@ const app = express();
    MONGODB CONNECTION
 ================================ */
 
-const defaultMongoUri = "mongodb+srv://waheeddesiremistaheen_db_user:waheedtenidesireanu7%40@cactus.lwga2qx.mongodb.net/cactus?retryWrites=true&w=majority&appName=Cactus";
+const defaultMongoUri = "mongodb+srv://waheeddesiremistaheen_db_user:Waheedtenidesireanu7@cactus.lwga2qx.mongodb.net/cactus?retryWrites=true&w=majority&appName=Cactus";
 
 function sanitizeMongoUri(uri) {
   if (!uri) return defaultMongoUri;
