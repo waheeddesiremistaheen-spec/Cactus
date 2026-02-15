@@ -255,26 +255,26 @@
         <div class="reservation-container">
             <div class="reservation-form-container">
                 <h2>Reservation Details</h2>
-                <form id="reservationForm">
+                <form id="reservationForm" action="https://cactus-reservations.onrender.com/reservations" method="POST">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">Full Name *</label>
-                            <input type="text" id="name" placeholder="Enter your full name" required>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="email">Email Address *</label>
-                            <input type="email" id="email" placeholder="Enter your email address" required>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
                         </div>
                         <div class="form-group">
                             <label for="guests">Number of Guests *</label>
-                            <select id="guests" required>
+                            <select id="guests" name="guests" required>
                                 <option value="">Select number of guests</option>
                                 <option value="1">1 Person</option>
                                 <option value="2">2 People</option>
@@ -294,17 +294,17 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="date">Reservation Date *</label>
-                            <input type="date" id="date" required>
+                            <input type="date" id="date" name="date" required>
                         </div>
                         <div class="form-group">
                             <label for="time">Reservation Time *</label>
-                            <input type="time" id="time" required>
+                            <input type="time" id="time" name="time" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label for="occasion">Special Occasion (Optional)</label>
-                        <select id="occasion">
+                        <select id="occasion" name="occasion">
                             <option value="">Select an occasion</option>
                             <option value="none">No special occasion</option>
                             <option value="birthday">Birthday</option>
@@ -318,9 +318,9 @@
                     
                     <div class="form-group">
                         <label for="special-requests">Special Requests (Optional)</label>
-                        <textarea id="special-requests" rows="4" placeholder="Any special requests or dietary requirements..."></textarea>
+                        <textarea id="special-requests" name="specialRequests" rows="4" placeholder="Any special requests or dietary requirements..."></textarea>
                     </div>
-                    
+                     <p id="reservationMessage" style="display:none; margin-top: 10px;"></p>
                     <button type="submit" class="reservation-submit">Confirm Reservation</button>
                 </form>
                 
@@ -461,7 +461,7 @@ if (timeInput) {
    RESERVATION FORM SUBMIT
 ================================ */
 if (reservationForm) {
-    reservationForm.addEventListener('submit', function (e) {
+    reservationForm.addEventListener('submit', async function (e) {
         e.preventDefault();
 
         // Get values
@@ -472,6 +472,13 @@ if (reservationForm) {
         const date = document.getElementById('date').value;
         const time = document.getElementById('time').value;
         const occasion = document.getElementById('occasion').value;
+        const specialRequests = document.getElementById('special-requests').value;
+        const reservationMessage = document.getElementById('reservationMessage');
+        const submitButton = reservationForm.querySelector('button[type="submit"]');
+
+        reservationMessage.style.display = 'none';
+        submitButton.disabled = true;
+        submitButton.textContent = 'Submitting...';
 
         // Format date
         const dateObj = new Date(date);
@@ -489,39 +496,40 @@ if (reservationForm) {
         hours = hours % 12 || 12;
         const formattedTime = `${hours}:${m} ${ampm}`;
 
-        // Show confirmation
-        reservationDetails.textContent =
-            `${name} for ${guests} guest(s) on ${formattedDate} at ${formattedTime}`;
-
-        reservationForm.style.display = 'none';
-        reservationSuccess.style.display = 'block';
-        reservationSuccess.scrollIntoView({ behavior: 'smooth' });
-
         /* ===============================
            SEND TO BACKEND 🔥
         ================================ */
-        fetch("https://cactus-reservations.onrender.com/reservations", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name,
-                phone,
-                email,
-                guests,
-                date,
-                time,
-                occasion
-            })
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log("Reservation saved:", data);
-        })
-        .catch(err => {
-            console.error("Error saving reservation:", err);
-        });
+    try {
+            const res = await fetch("https://cactus-reservations.onrender.com/reservations", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name,
+                    phone,
+                    email,
+                    guests,
+                    date,
+                    time,
+                    occasion,
+                    specialRequests
+                })
+            });
+
+            if (!res.ok) {
+                throw new Error(`Request failed with status ${res.status}`);
+            }
+
+            const data = await res.json();
+        console.log("Reservation saved:", data);
+        reservationMessage.style.display = 'block';
+            reservationMessage.style.color = '#ff6b6b';
+            reservationMessage.textContent = 'Sorry, we could not send your reservation. Please try again.';
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Confirm Reservation';
+        }
     });
 }
 
