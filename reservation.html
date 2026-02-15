@@ -286,7 +286,7 @@
                                 <option value="8">8 People</option>
                                 <option value="9">9 People</option>
                                 <option value="10">10 People</option>
-                                <option value="11+">More than 10 (Please call)</option>
+                                <option value="11">More than 10 (Please call)</option>
                             </select>
                         </div>
                     </div>
@@ -523,7 +523,17 @@ if (reservationForm) {
 
             const data = await res.json();
         console.log("Reservation saved:", data);
-        reservationMessage.style.display = 'block';
+
+            reservationMessage.style.display = 'block';
+            reservationMessage.style.color = '#7ee787';
+            reservationMessage.textContent = data.message || 'Reservation submitted successfully!';
+
+            reservationDetails.textContent = `${name} • ${guests} guest(s) • ${formattedDate} at ${formattedTime}`;
+            reservationForm.style.display = 'none';
+            reservationSuccess.style.display = 'block';
+        } catch (error) {
+            console.error('Reservation submission failed:', error);
+            reservationMessage.style.display = 'block';
             reservationMessage.style.color = '#ff6b6b';
             reservationMessage.textContent = 'Sorry, we could not send your reservation. Please try again.';
         } finally {
