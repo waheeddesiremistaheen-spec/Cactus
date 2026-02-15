@@ -8,10 +8,8 @@ const app = express();
    MONGODB CONNECTION
 ================================ */
 
-const defaultMongoUri = "mongodb+srv://waheeddesiremistaheen_db_user:Waheedtenidesireanu7@cactus.lwga2qx.mongodb.net/cactus?retryWrites=true&w=majority&appName=Cactus";
-
 function sanitizeMongoUri(uri) {
-  if (!uri) return defaultMongoUri;
+  if (!uri) return "";
   return uri.replace(/[<>]/g, "").trim();
 }
 
@@ -21,6 +19,10 @@ mongoose.set("strictQuery", true);
 mongoose.set("bufferCommands", false);
 
 async function connectToMongo() {
+   if (!mongoUri) {
+    console.error("MongoDB Error: MONGODB_URI is not set. Add it in your Render environment variables.");
+    return;
+  }
   try {
     await mongoose.connect(mongoUri, {
       serverSelectionTimeoutMS: 10000,
