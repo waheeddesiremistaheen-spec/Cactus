@@ -8,16 +8,23 @@ const app = express();
    MONGODB CONNECTION
 ================================ */
 
-const mongoUri =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://waheeddesiremistaheen_db_user:waheedtenidesireanu7%40@cactus.lwga2qx.mongodb.net/cactus?retryWrites=true&w=majority&appName=Cactus";
+const defaultMongoUri = "mongodb+srv://waheeddesiremistaheen_db_user:waheedtenidesireanu7%40@cactus.lwga2qx.mongodb.net/cactus?retryWrites=true&w=majority&appName=Cactus";
+
+function sanitizeMongoUri(uri) {
+  if (!uri) return defaultMongoUri;
+  return uri.replace(/[<>]/g, "").trim();
+}
+
+const mongoUri = sanitizeMongoUri(process.env.MONGODB_URI);
 
 mongoose.set("strictQuery", true);
+mongoose.set("bufferCommands", false);
 
 async function connectToMongo() {
   try {
     await mongoose.connect(mongoUri, {
-      serverSelectionTimeoutMS: 10000
+      serverSelectionTimeoutMS: 10000,
+      dbName: process.env.MONGODB_DB || "cactus"
     });
     console.log("✅ MongoDB Connected");
   } catch (err) {
@@ -63,6 +70,10 @@ const Reservation = mongoose.model("Reservation", reservationSchema);
    ROUTES
 ================================ */
 
+function isMongoConnected() {
+  return mongoose.connection.readyState === 1;
+}
+
 app.get("/", (req, res) => {
   res.send("Cactus Restaurant API is running 🚀");
 });
@@ -77,11 +88,15 @@ app.get("/health", (req, res) => {
 // Save reservation to MongoDB
 app.post("/reservations", async (req, res) => {
   try {
+      if (!isMongoConnected()) {
+      return res.status(503).json({ message: "Database unavailable. Please try again shortly." });
+    }
     const { name, phone, email, date, time, guests, occasion, specialRequests } = req.body;
     if (!name || !phone || !email || !date || !time || !guests) {
       return res.status(400).json({ message: "Missing required fields" });
     }
-      const parsedGuests = Number(guests);
+      
+     const parsedGuests = Number(guests);
     if (!Number.isInteger(parsedGuests) || parsedGuests < 1) {
       return res.status(400).json({ message: "Guests must be a valid number" });
     }
@@ -116,6 +131,10 @@ app.post("/reservations", async (req, res) => {
 // View all reservations (for testing)
 app.get("/reservations", async (req, res) => {
   try {
+     if (!isMongoConnected()) {
+      return res.status(503).json({ message: "Database unavailable. Please try again shortly." });
+    }
+
     const allReservations = await Reservation.find();
     res.json(allReservations);
   } catch (error) {
