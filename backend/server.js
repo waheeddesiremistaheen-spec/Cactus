@@ -8,11 +8,28 @@ const app = express();
    MONGODB CONNECTION
 ================================ */
 
-const mongoUri = process.env.MONGODB_URI || "mongodb+srv://waheeddesiremistaheen_db_user:waheedtenidesireanu7%40@cactus.lwga2qx.mongodb.net/cactus?retryWrites=true&w=majority&appName=Cactus";
+const mongoUri =
+  process.env.MONGODB_URI ||
+  "mongodb+srv://waheeddesiremistaheen_db_user:waheedtenidesireanu7%40@cactus.lwga2qx.mongodb.net/cactus?retryWrites=true&w=majority&appName=Cactus";
 
-mongoose.connect(mongoUri)
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.log("MongoDB Error:", err));
+mongoose.set("strictQuery", true);
+
+async function connectToMongo() {
+  try {
+    await mongoose.connect(mongoUri, {
+      serverSelectionTimeoutMS: 10000
+    });
+    console.log("✅ MongoDB Connected");
+  } catch (err) {
+    console.error("MongoDB Error:", err.message);
+  }
+}
+
+connectToMongo();
+
+mongoose.connection.on("disconnected", () => {
+  console.warn("⚠️ MongoDB disconnected");
+});
 
 /* ===============================
    MIDDLEWARE
@@ -20,35 +37,42 @@ mongoose.connect(mongoUri)
 
 app.use(cors());
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true }));
 
 /* ===============================
    SCHEMA & MODEL
 ================================ */
 
-const reservationSchema = new mongoose.Schema({
-  name: { type: String, required: true, trim: true },
-  phone: { type: String, required: true, trim: true },
-  email: { type: String, required: true, trim: true, lowercase: true },
-  date: { type: String, required: true },
-  time: { type: String, required: true },
-  guests: { type: Number, required: true, min: 1 },
-  occasion: { type: String, default: "" },
-  specialRequests: { type: String, default: "" }
-}, { timestamps: true });
+const reservationSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    phone: { type: String, required: true, trim: true },
+    email: { type: String, required: true, trim: true, lowercase: true },
+    date: { type: String, required: true },
+    time: { type: String, required: true },
+    guests: { type: Number, required: true, min: 1 },
+    occasion: { type: String, default: "" },
+    specialRequests: { type: String, default: "" }
+  },
+  { timestamps: true }
+);
 
 const Reservation = mongoose.model("Reservation", reservationSchema);
-
 
 /* ===============================
    ROUTES
 ================================ */
 
-// Home route
 app.get("/", (req, res) => {
   res.send("Cactus Restaurant API is running 🚀");
 });
 
+app.get("/health", (req, res) => {
+  res.json({
+    ok: true,
+    mongoState: mongoose.connection.readyState
+  });
+});
 
 // Save reservation to MongoDB
 app.post("/reservations", async (req, res) => {
