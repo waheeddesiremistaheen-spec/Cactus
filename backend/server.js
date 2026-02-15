@@ -8,12 +8,11 @@ const app = express();
    MONGODB CONNECTION
 ================================ */
 
-mongoose.connect(
-  "mongodb+srv://waheeddesiremistaheen_db_user:<waheedtenidesireanu7%40>@cactus.lwga2qx.mongodb.net/?appName=Cactus"
-)
-.then(() => console.log("✅ MongoDB Connected"))
-.catch(err => console.log("MongoDB Error:", err));
+const mongoUri = process.env.MONGODB_URI || "mongodb+srv://waheeddesiremistaheen_db_user:waheedtenidesireanu7%40@cactus.lwga2qx.mongodb.net/cactus?retryWrites=true&w=majority&appName=Cactus";
 
+mongoose.connect(mongoUri)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.log("MongoDB Error:", err));
 
 /* ===============================
    MIDDLEWARE
@@ -28,13 +27,15 @@ app.use(express.json());
 ================================ */
 
 const reservationSchema = new mongoose.Schema({
-  name: String,
-  phone: String,
-  email: String,
-  date: String,
-  time: String,
-  guests: Number
-});
+  name: { type: String, required: true, trim: true },
+  phone: { type: String, required: true, trim: true },
+  email: { type: String, required: true, trim: true, lowercase: true },
+  date: { type: String, required: true },
+  time: { type: String, required: true },
+  guests: { type: Number, required: true, min: 1 },
+  occasion: { type: String, default: "" },
+  specialRequests: { type: String, default: "" }
+}, { timestamps: true });
 
 const Reservation = mongoose.model("Reservation", reservationSchema);
 
@@ -52,10 +53,13 @@ app.get("/", (req, res) => {
 // Save reservation to MongoDB
 app.post("/reservations", async (req, res) => {
   try {
-    const { name, phone, email, date, time, guests } = req.body;
-
-    if (!name || !phone || !email) {
+    const { name, phone, email, date, time, guests, occasion, specialRequests } = req.body;
+    if (!name || !phone || !email || !date || !time || !guests) {
       return res.status(400).json({ message: "Missing required fields" });
+    }
+      const parsedGuests = Number(guests);
+    if (!Number.isInteger(parsedGuests) || parsedGuests < 1) {
+      return res.status(400).json({ message: "Guests must be a valid number" });
     }
 
     const newReservation = new Reservation({
@@ -64,7 +68,9 @@ app.post("/reservations", async (req, res) => {
       email,
       date,
       time,
-      guests
+      guests: parsedGuests,
+      occasion,
+      specialRequests
     });
 
     await newReservation.save();
