@@ -253,9 +253,9 @@
     <!-- Reservation Form Section -->
     <section class="section">
         <div class="reservation-container">
-            <div class="reservation-form-container" id="reservationFormContainer">
+            <div class="reservation-form-container">
                 <h2>Reservation Details</h2>
-                <form id="reservationForm" action="https://cactus-reservations.onrender.com/reservations" method="POST">
+                <form id="reservationForm">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">Full Name *</label>
@@ -320,19 +320,19 @@
                         <label for="special-requests">Special Requests (Optional)</label>
                         <textarea id="special-requests" name="specialRequests" rows="4" placeholder="Any special requests or dietary requirements..."></textarea>
                     </div>
-                    <p id="reservationMessage" style="display:none; margin-top: 10px; color: #ff6b6b;"></p>
+                    <p id="reservationMessage" style="display:none; margin-top: 10px;"></p>
                     <button type="submit" class="reservation-submit">Confirm Reservation</button>
                 </form>
-            </div>
-            
-            <div id="reservationSuccess" class="reservation-success">
-                <i class="fas fa-check-circle"></i>
-                <h3>Reservation Confirmed!</h3>
-                <p>Thank you for booking with Cactus Restaurant. We have sent a confirmation email to your inbox.</p>
-                <p>Your reservation details:</p>
-                <p id="reservationDetails" style="color: #d4af37; font-weight: 600;"></p>
-                <p>We look forward to serving you!</p>
-                <a href="index.html" class="back-btn">Back to Home</a>
+                
+                <div id="reservationSuccess" class="reservation-success">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Reservation Confirmed!</h3>
+                    <p>Thank you for booking with Cactus Restaurant. We have sent your reservation details via WhatsApp.</p>
+                    <p>Your reservation details:</p>
+                    <p id="reservationDetails" style="color: #d4af37; font-weight: 600;"></p>
+                    <p>We look forward to serving you!</p>
+                    <a href="index.html" class="back-btn">Back to Home</a>
+                </div>
             </div>
             
             <div class="reservation-info">
@@ -391,7 +391,6 @@ const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('nav-menu');
 const navbar = document.querySelector('.navbar');
 const reservationForm = document.getElementById('reservationForm');
-const reservationFormContainer = document.getElementById('reservationFormContainer');
 const reservationSuccess = document.getElementById('reservationSuccess');
 const reservationDetails = document.getElementById('reservationDetails');
 const scrollToTopBtn = document.getElementById('scrollToTop');
@@ -460,16 +459,13 @@ if (timeInput) {
 }
 
 /* ===============================
-   RESERVATION FORM SUBMIT (FIXED)
+   RESERVATION FORM SUBMIT (WhatsApp Integration)
 ================================ */
 if (reservationForm) {
     reservationForm.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        // Hide any previous message
-        reservationMessage.style.display = 'none';
-        
-        // Get values
+        // Get form values
         const name = document.getElementById('name').value.trim();
         const phone = document.getElementById('phone').value.trim();
         const email = document.getElementById('email').value.trim();
@@ -478,69 +474,88 @@ if (reservationForm) {
         const time = document.getElementById('time').value;
         const occasion = document.getElementById('occasion').value;
         const specialRequests = document.getElementById('special-requests').value.trim();
-
         const submitButton = reservationForm.querySelector('button[type="submit"]');
-        submitButton.disabled = true;
-        submitButton.textContent = 'Submitting...';
 
-        try {
-            const res = await fetch("https://cactus-reservations.onrender.com/reservations", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name,
-                    phone,
-                    email,
-                    guests,
-                    date,
-                    time,
-                    occasion,
-                    specialRequests
-                })
-            });
-
-            if (!res.ok) {
-                throw new Error(`Server responded with status ${res.status}`);
-            }
-
-            const data = await res.json();
-            console.log("Reservation saved:", data);
-
-            // Format date and time for display
-            const dateObj = new Date(date);
-            const formattedDate = dateObj.toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-            const [hour, minute] = time.split(':');
-            let hours = parseInt(hour);
-            const ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12 || 12;
-            const formattedTime = `${hours}:${minute} ${ampm}`;
-
-            // Fill success details
-            reservationDetails.innerHTML = `
-                <strong>${name}</strong><br>
-                ${formattedDate} at ${formattedTime}<br>
-                ${guests} guest(s)
-            `;
-
-            // Hide form, show success
-            reservationFormContainer.style.display = 'none';
-            reservationSuccess.style.display = 'block';
-
-        } catch (error) {
-            console.error("Reservation error:", error);
-            reservationMessage.textContent = 'Sorry, we could not send your reservation. Please try again or contact us by phone.';
+        // Basic validation
+        if (!name || !phone || !email || !guests || !date || !time) {
             reservationMessage.style.display = 'block';
-        } finally {
-            submitButton.disabled = false;
-            submitButton.textContent = 'Confirm Reservation';
+            reservationMessage.style.color = '#ff6b6b';
+            reservationMessage.textContent = 'Please fill in all required fields.';
+            return;
         }
+
+        // Disable button and show submitting state
+        reservationMessage.style.display = 'none';
+        submitButton.disabled = true;
+        submitButton.textContent = 'Processing...';
+
+        // Format date for display
+        const dateObj = new Date(date);
+        const formattedDate = dateObj.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Format time for display
+        const [hour, minute] = time.split(':');
+        let hours = parseInt(hour);
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        const formattedTime = `${hours}:${minute} ${ampm}`;
+
+        // Prepare reservation summary for display
+        const summary = `${formattedDate} at ${formattedTime} for ${guests} guest(s)`;
+        reservationDetails.textContent = summary;
+
+        // Prepare WhatsApp message
+        const occasionText = occasion ? (occasion === 'none' ? 'No special occasion' : occasion) : 'Not specified';
+        const requestsText = specialRequests || 'None';
+
+        const message = `🍽️ *New Reservation* 🍽️
+*Name:* ${name}
+*Phone:* ${phone}
+*Email:* ${email}
+*Guests:* ${guests}
+*Date:* ${formattedDate}
+*Time:* ${formattedTime}
+*Occasion:* ${occasionText}
+*Special Requests:* ${requestsText}`;
+
+        // Encode message for URL
+        const encodedMessage = encodeURIComponent(message);
+
+        // WhatsApp number (international format: 2349066956087)
+        const whatsappNumber = '2349066956087'; // 09066956087 without leading zero
+
+        // Create WhatsApp URL (opens in new tab, does not redirect current page)
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+        // Optional: Send to backend (uncomment if you want to keep the backend storage)
+        /*
+        try {
+            await fetch("https://cactus-reservations.onrender.com/reservations", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, phone, email, guests, date, time, occasion, specialRequests })
+            });
+        } catch (error) {
+            console.error("Backend error:", error);
+            // Continue with WhatsApp even if backend fails
+        }
+        */
+
+        // Open WhatsApp in a new tab (user may need to confirm on mobile)
+        window.open(whatsappUrl, '_blank');
+
+        // Hide the form and show success message
+        reservationForm.style.display = 'none';
+        reservationSuccess.style.display = 'block';
+
+        // Re-enable button in case the form is shown again (though it's hidden)
+        submitButton.disabled = false;
+        submitButton.textContent = 'Confirm Reservation';
     });
 }
 
