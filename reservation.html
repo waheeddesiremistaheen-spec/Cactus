@@ -10,7 +10,588 @@
     <style>
         .reservation-hero {
             height: 60vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cactus Restaurant | Make Reservation</title>
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* (styles unchanged – keep your existing CSS) */
+        .reservation-hero {
+            height: 60vh;
             background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                              url("main.jpeg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .reservation-hero h1 {
+            font-size: 3.5rem;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+        
+        .reservation-container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        
+        .reservation-form-container {
+            background-color: rgba(20, 20, 20, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 40px;
+            border-radius: 4px;
+        }
+        
+        .reservation-form-container h2 {
+            color: #d4af37;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 300;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            flex: 1;
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #b0b0b0;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(10, 10, 10, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #f5f5f5;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+        
+        .reservation-submit {
+            width: 100%;
+            padding: 18px;
+            background-color: #d4af37;
+            color: #0a0a0a;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        
+        .reservation-submit:hover {
+            background-color: #c2a031;
+            transform: translateY(-2px);
+        }
+        
+        .reservation-info {
+            background-color: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 25px;
+            border-radius: 4px;
+            margin-top: 30px;
+        }
+        
+        .reservation-info h3 {
+            color: #d4af37;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .reservation-info ul {
+            list-style: none;
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+        
+        .reservation-info li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .reservation-info li i {
+            color: #d4af37;
+            position: absolute;
+            left: 0;
+            top: 5px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: transparent;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .back-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .reservation-success {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background-color: rgba(20, 20, 20, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 4px;
+            margin-top: 30px;
+        }
+        
+        .reservation-success i {
+            font-size: 4rem;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+        
+        .reservation-success h3 {
+            color: #d4af37;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .reservation-success p {
+            color: #b0b0b0;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .reservation-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .reservation-form-container {
+                padding: 30px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .reservation-hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Transparent Fixed Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-cactus"></i>
+                <span>Cactus Restaurant</span>
+            </a>
+            
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            
+            <!-- Navigation Menu -->
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#special-events" class="nav-link">Special Events</a></li>
+                <li><a href="index.html#ice-cream" class="nav-link">Ice Cream</a></li>
+                <li><a href="index.html#dessert" class="nav-link">Dessert</a></li>
+                <li><a href="index.html#pastries" class="nav-link">Pastries</a></li>
+                <li><a href="index.html#breakfast" class="nav-link">Breakfast</a></li>
+                <li><a href="index.html#latte" class="nav-link">Latte</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li><a href="index.html#feedback" class="nav-link">Feedback</a></li>
+                <li><a href="menu.html" class="nav-link menu-btn">Our Menu</a></li>
+                <li><a href="reservation.html" class="nav-link reservation-btn">Make Reservation</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Reservation Hero Section -->
+    <section class="reservation-hero">
+        <div class="container">
+            <h1>Make a Reservation</h1>
+            <p class="motto">Book your table and experience culinary excellence</p>
+        </div>
+    </section>
+
+    <!-- Reservation Form Section -->
+    <section class="section">
+        <div class="reservation-container">
+            <div class="reservation-form-container">
+                <h2>Reservation Details</h2>
+                <form id="reservationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guests">Number of Guests *</label>
+                            <select id="guests" name="guests" required>
+                                <option value="">Select number of guests</option>
+                                <option value="1">1 Person</option>
+                                <option value="2">2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                                <option value="5">5 People</option>
+                                <option value="6">6 People</option>
+                                <option value="7">7 People</option>
+                                <option value="8">8 People</option>
+                                <option value="9">9 People</option>
+                                <option value="10">10 People</option>
+                                <option value="11+">More than 10 (Please call)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Reservation Date *</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Reservation Time *</label>
+                            <input type="time" id="time" name="time" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="occasion">Special Occasion (Optional)</label>
+                        <select id="occasion" name="occasion">
+                            <option value="">Select an occasion</option>
+                            <option value="none">No special occasion</option>
+                            <option value="birthday">Birthday</option>
+                            <option value="anniversary">Anniversary</option>
+                            <option value="engagement">Engagement</option>
+                            <option value="business">Business Meeting</option>
+                            <option value="family">Family Gathering</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="special-requests">Special Requests (Optional)</label>
+                        <textarea id="special-requests" name="specialRequests" rows="4" placeholder="Any special requests or dietary requirements..."></textarea>
+                    </div>
+                    <p id="reservationMessage" style="display:none; margin-top: 10px;"></p>
+                    <button type="submit" class="reservation-submit">Confirm Reservation</button>
+                </form>
+                
+                <div id="reservationSuccess" class="reservation-success">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Reservation Confirmed!</h3>
+                    <p>Thank you for booking with Cactus Restaurant. Please check the new WhatsApp tab to send your details — we’ll receive them instantly.</p>
+                    <p>Your reservation details:</p>
+                    <p id="reservationDetails" style="color: #d4af37; font-weight: 600;"></p>
+                    <p>We look forward to serving you!</p>
+                    <a href="index.html" class="back-btn">Back to Home</a>
+                </div>
+            </div>
+            
+            <div class="reservation-info">
+                <h3>Reservation Information</h3>
+                <ul>
+                    <li><i class="fas fa-clock"></i> <strong>Operating Hours:</strong> Monday - Sunday, 7:30 AM - 10:30 PM</li>
+                    <li><i class="fas fa-users"></i> <strong>Group Bookings:</strong> For parties of 10 or more, please call us directly</li>
+                    <li><i class="fas fa-bell"></i> <strong>Special Requests:</strong> Let us know about dietary restrictions or special occasions</li>
+                    <li><i class="fas fa-calendar-alt"></i> <strong>Cancellation Policy:</strong> Please cancel at least 2 hours before your reservation</li>
+                    <li><i class="fas fa-phone"></i> <strong>Need Help?</strong> Call us at 08027777666 for assistance</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-cactus"></i>
+                    <span>Cactus Restaurant</span>
+                </div>
+                <p class="footer-text">© <span id="currentYear"></span> Cactus Restaurant. All rights reserved. Cactus is a Home away from Home.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/CactusBakery" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+/* ===============================
+   DOM ELEMENTS
+================================ */
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('nav-menu');
+const navbar = document.querySelector('.navbar');
+const reservationForm = document.getElementById('reservationForm');
+const reservationSuccess = document.getElementById('reservationSuccess');
+const reservationDetails = document.getElementById('reservationDetails');
+const scrollToTopBtn = document.getElementById('scrollToTop');
+const reservationMessage = document.getElementById('reservationMessage');
+
+/* ===============================
+   MOBILE MENU
+================================ */
+hamburger.addEventListener('click', function () {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
+
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    });
+});
+
+/* ===============================
+   NAVBAR SCROLL EFFECT
+================================ */
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+
+    if (window.scrollY > 500) {
+        scrollToTopBtn.classList.add('show');
+    } else {
+        scrollToTopBtn.classList.remove('show');
+    }
+});
+
+/* ===============================
+   SCROLL TO TOP
+================================ */
+scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ===============================
+   FOOTER YEAR
+================================ */
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+/* ===============================
+   DATE & TIME DEFAULTS
+================================ */
+const dateInput = document.getElementById('date');
+if (dateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    dateInput.value = tomorrow.toISOString().split('T')[0];
+}
+
+const timeInput = document.getElementById('time');
+if (timeInput) {
+    timeInput.value = '19:00';
+}
+
+/* ===============================
+   RESERVATION FORM SUBMIT – WhatsApp (no redirect)
+================================ */
+if (reservationForm) {
+    reservationForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Get form values
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const guests = document.getElementById('guests').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+        const occasion = document.getElementById('occasion').value;
+        const specialRequests = document.getElementById('special-requests').value.trim();
+        const submitButton = reservationForm.querySelector('button[type="submit"]');
+
+        // Basic validation
+        if (!name || !phone || !email || !guests || !date || !time) {
+            reservationMessage.style.display = 'block';
+            reservationMessage.style.color = '#ff6b6b';
+            reservationMessage.textContent = 'Please fill in all required fields.';
+            return;
+        }
+
+        // Disable button to prevent double submission
+        reservationMessage.style.display = 'none';
+        submitButton.disabled = true;
+        submitButton.textContent = 'Processing...';
+
+        // Format date for display
+        const dateObj = new Date(date);
+        const formattedDate = dateObj.toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Format time for display
+        const [hour, minute] = time.split(':');
+        let hours = parseInt(hour);
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        const formattedTime = `${hours}:${minute} ${ampm}`;
+
+        // Prepare reservation summary for the success message
+        const summary = `${formattedDate} at ${formattedTime} for ${guests} guest(s)`;
+        reservationDetails.textContent = summary;
+
+        // Prepare WhatsApp message (owner receives it when customer sends)
+        const occasionText = occasion ? (occasion === 'none' ? 'No special occasion' : occasion) : 'Not specified';
+        const requestsText = specialRequests || 'None';
+
+        const message = `🍽️ *New Reservation* 🍽️
+*Name:* ${name}
+*Phone:* ${phone}
+*Email:* ${email}
+*Guests:* ${guests}
+*Date:* ${formattedDate}
+*Time:* ${formattedTime}
+*Occasion:* ${occasionText}
+*Special Requests:* ${requestsText}`;
+
+        // Encode for URL
+        const encodedMessage = encodeURIComponent(message);
+
+        // WhatsApp number (international format: 2349066956087)
+        const whatsappNumber = '2349066956087'; // 09066956087 without leading zero
+
+        // Create WhatsApp URL (opens in new tab, does NOT redirect current page)
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+        // Open WhatsApp in a new tab – the customer can review and send.
+        // The owner will receive the message once the customer taps "Send".
+        window.open(whatsappUrl, '_blank');
+
+        // Hide the form and show success message
+        reservationForm.style.display = 'none';
+        reservationSuccess.style.display = 'block';
+
+        // (Optional) also send to backend if you want to store reservations
+        /*
+        fetch("https://cactus-reservations.onrender.com/reservations", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, phone, email, guests, date, time, occasion, specialRequests })
+        }).catch(err => console.error("Backend error:", err));
+        */
+
+        // Re-enable button (though form is hidden, good practice)
+        submitButton.disabled = false;
+        submitButton.textContent = 'Confirm Reservation';
+    });
+}
+
+/* ===============================
+   CLOSE MENU OUTSIDE CLICK
+================================ */
+document.addEventListener('click', (event) => {
+    if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    }
+});
+
+/* ===============================
+   CLOSE MENU WITH ESC
+================================ */
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    }
+});
+</script>
+
+<!-- Note: Due to WhatsApp's design, the customer must tap "Send" in the new tab for you to receive the message. There is no way to send a WhatsApp message directly from a website without user interaction. -->
+</body>
+</html> rgba(0, 0, 0, 0.7)), 
                               url("main.jpeg");
             background-size: cover;
             background-position: center;
