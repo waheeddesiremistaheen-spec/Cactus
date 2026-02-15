@@ -253,7 +253,7 @@
     <!-- Reservation Form Section -->
     <section class="section">
         <div class="reservation-container">
-            <div class="reservation-form-container">
+            <div class="reservation-form-container" id="reservationFormContainer">
                 <h2>Reservation Details</h2>
                 <form id="reservationForm" action="https://cactus-reservations.onrender.com/reservations" method="POST">
                     <div class="form-row">
@@ -320,19 +320,19 @@
                         <label for="special-requests">Special Requests (Optional)</label>
                         <textarea id="special-requests" name="specialRequests" rows="4" placeholder="Any special requests or dietary requirements..."></textarea>
                     </div>
-                     <p id="reservationMessage" style="display:none; margin-top: 10px;"></p>
+                    <p id="reservationMessage" style="display:none; margin-top: 10px; color: #ff6b6b;"></p>
                     <button type="submit" class="reservation-submit">Confirm Reservation</button>
                 </form>
-                
-                <div id="reservationSuccess" class="reservation-success">
-                    <i class="fas fa-check-circle"></i>
-                    <h3>Reservation Confirmed!</h3>
-                    <p>Thank you for booking with Cactus Restaurant. We have sent a confirmation email to your inbox.</p>
-                    <p>Your reservation details:</p>
-                    <p id="reservationDetails" style="color: #d4af37; font-weight: 600;"></p>
-                    <p>We look forward to serving you!</p>
-                    <a href="index.html" class="back-btn">Back to Home</a>
-                </div>
+            </div>
+            
+            <div id="reservationSuccess" class="reservation-success">
+                <i class="fas fa-check-circle"></i>
+                <h3>Reservation Confirmed!</h3>
+                <p>Thank you for booking with Cactus Restaurant. We have sent a confirmation email to your inbox.</p>
+                <p>Your reservation details:</p>
+                <p id="reservationDetails" style="color: #d4af37; font-weight: 600;"></p>
+                <p>We look forward to serving you!</p>
+                <a href="index.html" class="back-btn">Back to Home</a>
             </div>
             
             <div class="reservation-info">
@@ -391,9 +391,11 @@ const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('nav-menu');
 const navbar = document.querySelector('.navbar');
 const reservationForm = document.getElementById('reservationForm');
+const reservationFormContainer = document.getElementById('reservationFormContainer');
 const reservationSuccess = document.getElementById('reservationSuccess');
 const reservationDetails = document.getElementById('reservationDetails');
 const scrollToTopBtn = document.getElementById('scrollToTop');
+const reservationMessage = document.getElementById('reservationMessage');
 
 /* ===============================
    MOBILE MENU
@@ -458,48 +460,30 @@ if (timeInput) {
 }
 
 /* ===============================
-   RESERVATION FORM SUBMIT
+   RESERVATION FORM SUBMIT (FIXED)
 ================================ */
 if (reservationForm) {
     reservationForm.addEventListener('submit', async function (e) {
         e.preventDefault();
 
+        // Hide any previous message
+        reservationMessage.style.display = 'none';
+        
         // Get values
-        const name = document.getElementById('name').value;
-        const phone = document.getElementById('phone').value;
-        const email = document.getElementById('email').value;
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const email = document.getElementById('email').value.trim();
         const guests = document.getElementById('guests').value;
         const date = document.getElementById('date').value;
         const time = document.getElementById('time').value;
         const occasion = document.getElementById('occasion').value;
-        const specialRequests = document.getElementById('special-requests').value;
-        const reservationMessage = document.getElementById('reservationMessage');
-        const submitButton = reservationForm.querySelector('button[type="submit"]');
+        const specialRequests = document.getElementById('special-requests').value.trim();
 
-        reservationMessage.style.display = 'none';
+        const submitButton = reservationForm.querySelector('button[type="submit"]');
         submitButton.disabled = true;
         submitButton.textContent = 'Submitting...';
 
-        // Format date
-        const dateObj = new Date(date);
-        const formattedDate = dateObj.toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-
-        // Format time
-        const [h, m] = time.split(':');
-        let hours = parseInt(h);
-        const ampm = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12 || 12;
-        const formattedTime = `${hours}:${m} ${ampm}`;
-
-        /* ===============================
-           SEND TO BACKEND 🔥
-        ================================ */
-    try {
+        try {
             const res = await fetch("https://cactus-reservations.onrender.com/reservations", {
                 method: "POST",
                 headers: {
@@ -518,14 +502,41 @@ if (reservationForm) {
             });
 
             if (!res.ok) {
-                throw new Error(`Request failed with status ${res.status}`);
+                throw new Error(`Server responded with status ${res.status}`);
             }
 
             const data = await res.json();
-        console.log("Reservation saved:", data);
-        reservationMessage.style.display = 'block';
-            reservationMessage.style.color = '#ff6b6b';
-            reservationMessage.textContent = 'Sorry, we could not send your reservation. Please try again.';
+            console.log("Reservation saved:", data);
+
+            // Format date and time for display
+            const dateObj = new Date(date);
+            const formattedDate = dateObj.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            const [hour, minute] = time.split(':');
+            let hours = parseInt(hour);
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            const formattedTime = `${hours}:${minute} ${ampm}`;
+
+            // Fill success details
+            reservationDetails.innerHTML = `
+                <strong>${name}</strong><br>
+                ${formattedDate} at ${formattedTime}<br>
+                ${guests} guest(s)
+            `;
+
+            // Hide form, show success
+            reservationFormContainer.style.display = 'none';
+            reservationSuccess.style.display = 'block';
+
+        } catch (error) {
+            console.error("Reservation error:", error);
+            reservationMessage.textContent = 'Sorry, we could not send your reservation. Please try again or contact us by phone.';
+            reservationMessage.style.display = 'block';
         } finally {
             submitButton.disabled = false;
             submitButton.textContent = 'Confirm Reservation';
