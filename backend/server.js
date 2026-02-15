@@ -9,7 +9,7 @@ const app = express();
 ================================ */
 
 mongoose.connect(
-  "mongodb+srv://waheeddesiremistaheen_db_user:waheedtenidesireanu7%40@cactus.lwga2qx.mongodb.net/cactusDB?retryWrites=true&w=majority"
+  "mongodb+srv://waheeddesiremistaheen_db_user:<waheedtenidesireanu7%40>@cactus.lwga2qx.mongodb.net/?appName=Cactus"
 )
 .then(() => console.log("✅ MongoDB Connected"))
 .catch(err => console.log("MongoDB Error:", err));
