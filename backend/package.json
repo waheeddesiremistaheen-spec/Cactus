@@ -1,14 +1,4 @@
 {
-  "name": "cactus-monorepo",
-  "private": true,
-  "version": "1.0.0",
-  "scripts": {
-    "postinstall": "npm install --prefix backend",
-    "start": "node backend/server.js",
-    "dev": "npm run dev --prefix backend"
-  }
-}
-{
   "name": "cactus-restaurant",
   "version": "1.0.0",
   "description": "Cactus Restaurant Backend",
@@ -18,12 +8,12 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^4.22.1",
-    "mongoose": "^8.0.19"
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongoose": "^8.0.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.11"
+    "nodemon": "^3.1.9"
   },
   "keywords": [],
   "author": "",
